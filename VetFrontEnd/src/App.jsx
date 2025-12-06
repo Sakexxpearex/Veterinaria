@@ -1,24 +1,68 @@
 import { useEffect, useState } from "react";
 import { api } from "./api";
-
+import axios from "axios";
 function App() {
   const [propietarios, setPropietarios] = useState([]);
+  const [form, setForm] = useState({
+  nombre: "",
+  email: "",
+  telefono: "",
+  });
 
 useEffect(() => {
-  fetch('http://localhost:8000/api/propietarios')
-    .then(r => r.json())
-    .then(data => setPropietarios(data));
+  async function fetchData() {
+    try {
+      const res = await axios.get('http://localhost:8000/api/propietarios');
+      setPropietarios(res.data); 
+      console.log(res.data)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  fetchData();
+  
 }, []);
 
+  async function handleSubmit(e) {
+  e.preventDefault();
+  try {
+    await axios.post("http://localhost:8000/api/propietarios", form);
+    setPropietarios([...propietarios,form]); 
+    setForm({ nombre: "", telefono: "", email: "" });
+  } catch (error) {
+    console.error(error);
+  }
+  }
+
+
+  function handleChange(e) {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+    console.log(form)
+  }
   return (
+    <>
+    <div>
+    <form onSubmit={handleSubmit}>
+      <input name="nombre" placeholder="Nombre" onChange={handleChange} />
+      <input name="telefono" placeholder="Teléfono" onChange={handleChange} type="number"  />
+      <input name="email" placeholder="Email" onChange={handleChange} />
+      
+      <button type="submit">Guardar</button>
+    </form>
+    </div>
     <div>
       <h1>Propietarios</h1>
       <ul>
         {propietarios.map((o) => (
-          <li key={o.id}>{o.nombre}</li>
+          <li key={o.id}> {o.nombre} {o.email} {o.telefono}</li>
         ))}
       </ul>
     </div>
+    </>
   );
 }
 

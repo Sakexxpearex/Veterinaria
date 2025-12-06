@@ -11,7 +11,6 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::apiResource('propietarios', PropietarioController::class);
-Route::get('propietarios/{id}/mascotas', [PropietarioController::class, 'mascotas']);
-
 Route::apiResource('mascotas', MascotaController::class);
 Route::apiResource('reservaciones', ReservacionController::class);
+Route::get('propietarios/{id}/mascotas', [PropietarioController::class, 'mascotas']);
