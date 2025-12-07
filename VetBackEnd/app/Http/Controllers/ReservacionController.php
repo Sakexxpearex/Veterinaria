@@ -9,8 +9,11 @@ class ReservacionController extends Controller
 {
     public function index()
     {
-        return response()->json(Reservacion::all());
+        return response()->json(
+            Reservacion::with(['mascota', 'propietario'])->get()
+        );
     }
+
 
     public function store(Request $request)
     {

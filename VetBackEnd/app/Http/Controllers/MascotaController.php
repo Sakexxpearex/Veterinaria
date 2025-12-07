@@ -9,8 +9,11 @@ class MascotaController extends Controller
 {
     public function index()
     {
-        return response()->json(Mascota::all());
+        return response()->json(
+            Mascota::with('propietario')->get()
+        );
     }
+
 
     public function store(Request $request)
     {
@@ -45,10 +48,5 @@ class MascotaController extends Controller
         $mascota->delete();
         return response()->json(['message' => 'Mascota eliminada']);
     }
-        public function funcion($edad)
-    {
-        $mascota = Mascota::findOrFail($edad);
-        $mascota->delete();
-        return response()->json(['message' => 'Mascota eliminada']);
-    }
+
 }

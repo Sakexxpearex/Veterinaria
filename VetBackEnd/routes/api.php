@@ -13,4 +13,8 @@ Route::get('/user', function (Request $request) {
 Route::apiResource('propietarios', PropietarioController::class);
 Route::apiResource('mascotas', MascotaController::class);
 Route::apiResource('reservaciones', ReservacionController::class);
+Route::apiResource('consultas', ConsultaController::class);
+Route::apiResource('cirugias', CirugiaController::class);
+Route::apiResource('tratamientos', TratamientoController::class);
 Route::get('propietarios/{id}/mascotas', [PropietarioController::class, 'mascotas']);
+Route::get('mascotas/{id}/historial', [MascotaController::class, 'historial']);

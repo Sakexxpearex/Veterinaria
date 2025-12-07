@@ -10,7 +10,8 @@ class PropietarioController extends Controller
     // Listar todos los propietarios
     public function index()
     {
-        return response()->json(Propietario::all());
+        return response()->json(Propietario::with('mascotas')->paginate(20));
+
     }
 
     // Crear un nuevo propietario
@@ -52,10 +53,11 @@ class PropietarioController extends Controller
         return response()->json(['message' => 'Propietario eliminado']);
     }
 
-    // Listar todas las mascotas de un propietario
     public function mascotas($id)
     {
         $propietario = Propietario::findOrFail($id);
-        return response()->json($propietario->mascotas);
+        return response()->json(
+            $propietario->mascotas()->orderBy('id','desc')->get()
+        );
     }
 }
