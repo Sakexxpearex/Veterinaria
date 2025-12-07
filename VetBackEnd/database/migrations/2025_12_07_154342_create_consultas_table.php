@@ -11,10 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('consultas', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+    Schema::create('consultas', function (Blueprint $table) {
+        $table->id();
+
+        $table->foreignId('mascota_id')->constrained()->onDelete('cascade');
+
+        $table->date('fecha')->default(now());
+        $table->text('motivo')->nullable();
+        $table->text('diagnostico')->nullable();
+        $table->text('observaciones')->nullable();
+
+        $table->timestamps();
+});
+
     }
 
     /**

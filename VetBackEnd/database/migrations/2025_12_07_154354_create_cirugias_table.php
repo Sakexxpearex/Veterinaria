@@ -11,10 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cirugias', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+    Schema::create('cirugias', function (Blueprint $table) {
+        $table->id();
+
+        $table->foreignId('mascota_id')->constrained()->onDelete('cascade');
+
+        $table->date('fecha');
+        $table->string('tipo');
+        $table->text('descripcion')->nullable();
+        $table->text('complicaciones')->nullable();
+
+        $table->timestamps();
+});
+
     }
 
     /**
