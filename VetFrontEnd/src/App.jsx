@@ -27,14 +27,13 @@ useEffect(() => {
   async function handleSubmit(e) {
   e.preventDefault();
   try {
-    await axios.post("http://localhost:8000/api/propietarios", form);
-    setPropietarios([...propietarios,form]); 
+    const res=await axios.post("http://localhost:8000/api/propietarios", form);
+    setPropietarios([...propietarios,res.data]); 
     setForm({ nombre: "", telefono: "", email: "" });
   } catch (error) {
     console.error(error);
   }
   }
-
 
   function handleChange(e) {
     setForm({
@@ -43,13 +42,15 @@ useEffect(() => {
     });
     console.log(form)
   }
+
+
   return (
     <>
     <div>
     <form onSubmit={handleSubmit}>
-      <input name="nombre" placeholder="Nombre" onChange={handleChange} />
-      <input name="telefono" placeholder="Teléfono" onChange={handleChange} type="number"  />
-      <input name="email" placeholder="Email" onChange={handleChange} />
+      <input name="nombre" value={form.nombre} placeholder="Nombre" onChange={handleChange} />
+      <input name="telefono" value={form.telefono} placeholder="Teléfono" onChange={handleChange} type="number"  />
+      <input name="email" value={form.email} placeholder="Email" onChange={handleChange} />
       
       <button type="submit">Guardar</button>
     </form>
