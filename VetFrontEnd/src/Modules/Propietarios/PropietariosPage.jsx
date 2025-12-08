@@ -16,7 +16,7 @@ export default function PropietariosPage() {
 
   async function cargar() {
     const data = await getPropietarios();
-    setPropietarios(data);
+    setPropietarios(data.data);
   }
 
   async function agregar(data) {
@@ -28,7 +28,7 @@ export default function PropietariosPage() {
     await deletePropietario(id);
     setPropietarios(propietarios.filter(p => p.id !== id));
   }
-
+  
   return (
     <div>
       <h1>Propietarios</h1>
