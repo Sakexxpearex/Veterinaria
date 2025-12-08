@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tratamiento;
 use Illuminate\Http\Request;
 
 class TratamientoController extends Controller
@@ -11,7 +12,9 @@ class TratamientoController extends Controller
      */
     public function index()
     {
-        //
+                return response()->json(
+            Tratamiento::with(['mascota', 'propietario'])->get()
+        );
     }
 
     /**
