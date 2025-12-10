@@ -15,3 +15,8 @@ export const deletePropietario = (id) =>
 
 export const getMascotasByPropietario = (id) =>
   axios.get(`${API}/${id}/mascotas`).then(res => res.data);
+
+export const getPropietario = async (id) => {
+  const res = await axios.get(`${API}/${id}`);
+  return res.data;
+};

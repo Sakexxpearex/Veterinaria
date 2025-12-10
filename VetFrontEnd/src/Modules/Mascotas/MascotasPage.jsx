@@ -11,10 +11,6 @@ export const MascotasPage = () =>{
         <h2>Lista Mascotas</h2>
         <ListaMascotas></ListaMascotas>
 
-
-
-
-
         </>
     )
 }

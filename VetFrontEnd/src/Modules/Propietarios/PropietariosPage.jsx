@@ -8,10 +8,12 @@ import {
 import FormPropietario from "./FormPropietario";
 import ListaPropietarios from "./ListaPropietarios";
 import EditPropietario from "./Editar Propietario";
+import PropietarioDetalle from "./PropietarioDetalle";
 
 export default function PropietariosPage() {
   const [propietarios, setPropietarios] = useState([]);
   const [editando, setEditando] = useState(null);
+  const [propietarioSeleccionado, setPropietarioSeleccionado] = useState(null);
 
   useEffect(() => {
     cargar();
@@ -44,30 +46,36 @@ export default function PropietariosPage() {
     setEditando(null);
   }
 
-  return (
-    <>
-    <div>
-      <h1>Propietarios</h1>
-
-    {editando ? (
-      <EditPropietario
-        propietario={editando}
-        onUpdate={actualizar}
-        onCancel={() => setEditando(null)}
+return (
+  <>
+    {propietarioSeleccionado ? (
+      <PropietarioDetalle
+        id={propietarioSeleccionado}
+        onVolver={() => setPropietarioSeleccionado(null)}
       />
     ) : (
-      <FormPropietario onSubmit={agregar} />
+      <div>
+        <h1>Propietarios</h1>
+
+        {editando ? (
+          <EditPropietario
+            propietario={editando}
+            onUpdate={actualizar}
+            onCancel={() => setEditando(null)}
+          />
+        ) : (
+          <FormPropietario onSubmit={agregar} />
+        )}
+
+        <ListaPropietarios
+          propietarios={propietarios}
+          onDelete={eliminar}
+          onEdit={(p) => setEditando(p)}
+          onVerDetalle={(id) => setPropietarioSeleccionado(id)}
+        />
+      </div>
     )}
+  </>
+);
 
-      <ListaPropietarios 
-        propietarios={propietarios}
-        onDelete={eliminar}
-        onEdit={(p) => setEditando(p)}
-      />
-      
-    </div>
-    
-
-    </>
-  );
 }
