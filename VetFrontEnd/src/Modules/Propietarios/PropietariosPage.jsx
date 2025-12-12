@@ -55,8 +55,7 @@ return (
       />
     ) : (
       <div>
-        <h1>Propietarios</h1>
-
+        
         {editando ? (
           <EditPropietario
             propietario={editando}
