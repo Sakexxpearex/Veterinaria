@@ -17,4 +17,4 @@ Route::apiResource('consultas', ConsultaController::class);
 Route::apiResource('cirugias', CirugiaController::class);
 Route::apiResource('tratamientos', TratamientoController::class);
 Route::get('propietarios/{id}/mascotas', [PropietarioController::class, 'mascotas']);
-Route::get('mascotas/{id}/historial', [MascotaController::class, 'historial']);
+
