@@ -52,11 +52,7 @@ class TratamientoController extends Controller
     public function porMascota($mascotaId, $tipo = null)
     {
         $query = Reservacion::where('mascota_id', $mascotaId);
-
-        if ($tipo) {
-            $query->where('tipo', $tipo);
-        }
-
+        
         return response()->json($query->get());
     }
 }
