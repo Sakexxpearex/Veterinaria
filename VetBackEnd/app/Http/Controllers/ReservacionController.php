@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Reservacion;
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
 class ReservacionController extends Controller
 {
     public function index()
@@ -47,5 +47,13 @@ class ReservacionController extends Controller
         $reservacion = Reservacion::findOrFail($id);
         $reservacion->delete();
         return response()->json(['message' => 'Reservación eliminada']);
+    }
+        public function countHoy()
+    {
+        $hoy = Carbon::today()->toDateString();
+
+        $total = Reservacion::whereDate('fecha', $hoy)->count();
+
+        return response()->json($total);
     }
 }

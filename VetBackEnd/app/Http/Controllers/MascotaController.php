@@ -49,4 +49,10 @@ class MascotaController extends Controller
         return response()->json(['message' => 'Mascota eliminada']);
     }
 
+    public function count()
+    {
+    return response()->json(
+        Mascota::count()
+    );
+    }
 }

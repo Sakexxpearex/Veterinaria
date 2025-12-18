@@ -33,3 +33,8 @@ export const getMascotasByPropietario = async (propietarioId) => {
   );
   return res.data; // lista de mascotas del propietario
 };
+
+export const getMascotasCount = async () => {
+  const res = await axios.get("http://localhost:8000/api/mascotas-count");
+  return res.data;
+};
