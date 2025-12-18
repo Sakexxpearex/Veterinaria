@@ -11,6 +11,7 @@ export default function ListaMascotas({ mascotas }) {
           <strong>{m.nombre}</strong> — {m.especie}
           {m.raza && ` (${m.raza})`}
           {m.edad && ` — ${m.edad} años`}
+          
         </li>
       ))}
     </ul>
