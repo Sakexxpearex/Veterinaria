@@ -9,3 +9,10 @@ export const getReservacionesHoy = async () => {
   return res.data;
 };
 
+
+export const getReservacionesPendientes = async () => {
+  const res = await axios.get(
+    "http://localhost:8000/api/reservaciones-pendientes-count"
+  );
+  return res.data;
+};

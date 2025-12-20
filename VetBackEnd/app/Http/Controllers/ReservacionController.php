@@ -56,4 +56,11 @@ class ReservacionController extends Controller
 
         return response()->json($total);
     }
+
+    public function countPendientes()
+    {
+        $total = Reservacion::where('estado', 'pendiente')->count();
+
+        return response()->json($total);
+    }
 }

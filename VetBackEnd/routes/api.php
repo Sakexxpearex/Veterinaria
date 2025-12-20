@@ -21,3 +21,5 @@ Route::get('mascotas/{id}/Tratamiento',[TratamientoController::class, ]);
 Route::get('/mascotas/{mascota}/reservaciones', [ReservacionController::class, 'porMascota']);
 Route::get('/mascotas-count', [MascotaController::class, 'count']);
 Route::get('/reservaciones-hoy-count', [ReservacionController::class, 'countHoy']);
+Route::get('/reservaciones-pendientes-count', [ReservacionController::class, 'countPendientes']);
+
