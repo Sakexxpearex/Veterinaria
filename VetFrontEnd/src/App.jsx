@@ -1,23 +1,23 @@
-import { Routes, Route } from "react-router-dom";
+import {Routes, Route, Navigate } from "react-router-dom";
+import MainLayout from "./Modules/Layouts/MainLayout";
 import Dashboard from "./Modules/Dashboard/Dashboard";
 import PropietariosPage from "./Modules/Propietarios/PropietariosPage";
-import PropietarioDetalle from "./Modules/Propietarios/PropietarioDetalle";
 import MascotasPage from "./Modules/Mascotas/MascotasPage";
-import MascotaDetalle from "./Modules/Mascotas/MascotaDetalle";
-
-export default function App() {
+import ReservacionesPage from "./Modules/Reservaciones/ReservacionesPage";
+import MascotasPorPropietario from "./Modules/Propietarios/MascotaPorPropietario";
+function App() {
   return (
-    <Routes>
-      {/* Dashboard como raíz */}
-      <Route path="/" element={<Dashboard />} />
-
-      {/* Propietarios */}
-      <Route path="/propietarios" element={<PropietariosPage />} />
-      <Route path="/propietarios/:id" element={<PropietarioDetalle />} />
-
-      {/* Mascotas */}
-      <Route path="/mascotas" element={<MascotasPage />} />
-      <Route path="/mascotas/:id" element={<MascotaDetalle />} />
-    </Routes>
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/propietarios" element={<PropietariosPage />} />
+          <Route path="/mascotas" element={<MascotasPage />} />
+          <Route path="/reservaciones" element={<ReservacionesPage />} />
+          <Route path="/propietarios/:id/mascotas" element={<MascotasPorPropietario />}/>
+        </Route>
+      </Routes>
   );
 }
+
+export default App;

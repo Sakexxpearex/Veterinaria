@@ -48,14 +48,8 @@ export default function PropietariosPage() {
 
 return (
   <>
-    {propietarioSeleccionado ? (
-      <PropietarioDetalle
-        id={propietarioSeleccionado}
-        onVolver={() => setPropietarioSeleccionado(null)}
-      />
-    ) : (
+
       <div>
-        
         {editando ? (
           <EditPropietario
             propietario={editando}
@@ -66,6 +60,7 @@ return (
           <FormPropietario onSubmit={agregar} />
         )}
 
+      
         <ListaPropietarios
           propietarios={propietarios}
           onDelete={eliminar}
@@ -73,7 +68,7 @@ return (
           onVerDetalle={(id) => setPropietarioSeleccionado(id)}
         />
       </div>
-    )}
+        
   </>
 );
 

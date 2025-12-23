@@ -1,13 +1,20 @@
-export default function ListaPropietarios({ propietarios, onDelete , onEdit , onVerDetalle }) {
+import { useNavigate } from "react-router-dom";
 
+export default function ListaPropietarios({
+  propietarios,
+  onDelete,
+  onEdit,
+}) {
+  const navigate = useNavigate();
 
-   if (!propietarios || propietarios.length === 0) {
+  if (!propietarios || propietarios.length === 0) {
     return (
       <p className="text-gray-500 text-center mt-6">
         No hay propietarios registrados.
       </p>
     );
   }
+
   return (
     <div className="mt-6 overflow-x-auto">
       <table className="min-w-full border border-gray-200 rounded-lg overflow-hidden">
@@ -47,7 +54,9 @@ export default function ListaPropietarios({ propietarios, onDelete , onEdit , on
               <td className="px-4 py-3">
                 <div className="flex justify-end gap-2">
                   <button
-                    onClick={() => onVerDetalle(p.id)}
+                    onClick={() =>
+                      navigate(`/propietarios/${p.id}/mascotas`)
+                    }
                     className="text-sm px-3 py-1 rounded bg-indigo-100 text-indigo-700 hover:bg-indigo-200"
                   >
                     Mascotas

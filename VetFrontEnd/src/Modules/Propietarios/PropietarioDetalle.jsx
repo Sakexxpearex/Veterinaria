@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getPropietario, getMascotasByPropietario } from "../../Api/propietarios";
 import { createMascota } from "../../Api/mascotas";
 import ListaMascotas from "../Mascotas/ListaMascotas";
-import FormMascota from "../mascotas/FormMascota";
+import FormMascota from "../Mascotas/FormMascota";
 
 export default function PropietarioDetalle({ id, onVolver }) {
   
