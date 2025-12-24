@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Reservacion;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\Mascota;
 class ReservacionController extends Controller
 {
     public function index()
@@ -14,20 +15,26 @@ class ReservacionController extends Controller
         );
     }
 
+public function store(Request $request)
+{
+    $request->validate([
+        'mascota_id' => 'required|exists:mascotas,id',
+        'fecha' => 'required|date',
+        'motivo' => 'required|string|max:255',
+    ]);
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'propietario_id' => 'required|exists:propietarios,id',
-            'mascota_id' => 'required|exists:mascotas,id',
-            'fecha' => 'required|date',
-            'motivo' => 'required|string|max:255',
-            'estado' => 'nullable|string|in:pendiente,completado,cancelado',
-        ]);
+    $mascota = Mascota::findOrFail($request->mascota_id);
 
-        $reservacion = Reservacion::create($request->all());
-        return response()->json($reservacion, 201);
-    }
+    $reservacion = Reservacion::create([
+        'mascota_id' => $mascota->id,
+        'propietario_id' => $mascota->propietario_id,
+        'fecha' => $request->fecha,
+        'motivo' => $request->motivo,
+        'estado' => 'pendiente',
+    ]);
+
+    return response()->json($reservacion, 201);
+}
 
     public function show($id)
     {

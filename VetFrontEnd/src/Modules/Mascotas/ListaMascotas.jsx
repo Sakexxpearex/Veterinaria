@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
 import { getMascotas } from "../../Api/mascotas";
+import { useNavigate } from "react-router-dom";
 
 
 export default function ListaMascotas() {
     const [mascotas, setMascotas] = useState([])
+    const navigate = useNavigate();
 
   useEffect(() => {
     cargarMascotas();
@@ -41,6 +43,12 @@ return (
               <td className="px-4 py-3">
                 <button className="text-blue-600 hover:underline">
                   Ver
+                </button>
+                <button
+                  onClick={() => navigate(`/mascotas/${mascota.id}/reservar`)}
+                  className="text-blue-600 hover:underline"
+                >
+                  Crear Reservación
                 </button>
               </td>
             </tr>

@@ -20,3 +20,13 @@ export const getReservacionesPendientes = async () => {
   );
   return Number(res.data);
 };
+
+
+export const createReservacion = async (data) => {
+  const res = await axios.post(
+    "http://localhost:8000/api/reservaciones",
+    data
+  );
+  return res.data;
+};
+

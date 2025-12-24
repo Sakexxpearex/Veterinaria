@@ -5,6 +5,8 @@ import PropietariosPage from "./Modules/Propietarios/PropietariosPage";
 import MascotasPage from "./Modules/Mascotas/MascotasPage";
 import ReservacionesPage from "./Modules/Reservaciones/ReservacionesPage";
 import MascotasPorPropietario from "./Modules/Propietarios/MascotaPorPropietario";
+import FormReservacion from "./Modules/Reservaciones/FormReservacion";
+
 function App() {
   return (
       <Routes>
@@ -15,6 +17,7 @@ function App() {
           <Route path="/mascotas" element={<MascotasPage />} />
           <Route path="/reservaciones" element={<ReservacionesPage />} />
           <Route path="/propietarios/:id/mascotas" element={<MascotasPorPropietario />}/>
+          <Route path="/mascotas/:id/reservar" element={<FormReservacion />}/>
         </Route>
       </Routes>
   );
