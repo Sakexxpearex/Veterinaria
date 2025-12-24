@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import { getReservaciones } from "../../Api/reservaciones";
+import {
+  confirmarReservacion,
+  cancelarReservacion,
+} from "../../Api/reservaciones";
 
 export default function ReservacionListado() {
   const [reservaciones, setReservaciones] = useState([]);
@@ -12,6 +16,21 @@ export default function ReservacionListado() {
   async function cargarReservaciones() {
     const data = await getReservaciones();
     setReservaciones(data);
+  }
+  async function confirmar(id) {
+    const actualizada = await confirmarReservacion(id);
+
+    setReservaciones((prev) =>
+      prev.map((r) => (r.id === actualizada.id ? actualizada : r))
+    );
+  }
+
+  async function cancelar(id) {
+    const actualizada = await cancelarReservacion(id);
+
+    setReservaciones((prev) =>
+      prev.map((r) => (r.id === actualizada.id ? actualizada : r))
+    );
   }
 
   const hoy = new Date().toISOString().slice(0, 10);
@@ -141,18 +160,22 @@ export default function ReservacionListado() {
                   <td className="px-4 py-3">
                     <div className="flex justify-end gap-2">
                       {r.estado === "pendiente" && (
-                        <button
-                          className="text-sm px-3 py-1 rounded bg-green-100 text-green-700 hover:bg-green-200"
-                        >
-                          Confirmar
-                        </button>
-                      )}
+                        <>
+                          <button
+                            onClick={() => confirmar(r.id)}
+                            className="text-sm px-3 py-1 rounded bg-green-100 text-green-700 hover:bg-green-200"
+                          >
+                            Confirmar
+                          </button>
 
-                      <button
-                        className="text-sm px-3 py-1 rounded bg-red-100 text-red-700 hover:bg-red-200"
-                      >
-                        Cancelar
-                      </button>
+                          <button
+                            onClick={() => cancelar(r.id)}
+                            className="text-sm px-3 py-1 rounded bg-red-100 text-red-700 hover:bg-red-200"
+                          >
+                            Cancelar
+                          </button>
+                        </>
+                      )}
                     </div>
                   </td>
                 </tr>

@@ -70,4 +70,22 @@ public function store(Request $request)
 
         return response()->json($total);
     }
+
+    public function confirmar($id)
+    {
+    $reservacion = Reservacion::findOrFail($id);
+    $reservacion->estado = 'confirmada';
+    $reservacion->save();
+
+    return response()->json($reservacion);
+    }
+
+    public function cancelar($id)
+    {
+        $reservacion = Reservacion::findOrFail($id);
+        $reservacion->estado = 'cancelada';
+        $reservacion->save();
+
+        return response()->json($reservacion);
+    }
 }

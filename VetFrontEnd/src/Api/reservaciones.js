@@ -30,3 +30,16 @@ export const createReservacion = async (data) => {
   return res.data;
 };
 
+export const confirmarReservacion = async (id) => {
+  const res = await axios.patch(
+    `http://localhost:8000/api/reservaciones/${id}/confirmar`
+  );
+  return res.data;
+};
+
+export const cancelarReservacion = async (id) => {
+  const res = await axios.patch(
+    `http://localhost:8000/api/reservaciones/${id}/cancelar`
+  );
+  return res.data;
+};

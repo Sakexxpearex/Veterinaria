@@ -5,10 +5,7 @@ import ListaMascotas from './ListaMascotas'
 const MascotasPage = () =>{
     return(
         <>
-
-        <h2>Lista Mascotas</h2>
         <ListaMascotas></ListaMascotas>
-
         </>
     )
 }
