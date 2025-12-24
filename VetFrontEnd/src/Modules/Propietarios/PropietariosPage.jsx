@@ -8,12 +8,14 @@ import {
 import FormPropietario from "./FormPropietario";
 import ListaPropietarios from "./ListaPropietarios";
 import EditPropietario from "./Editar Propietario";
-import PropietarioDetalle from "./PropietarioDetalle";
+import FormMascota from "../Mascotas/FormMascota";
 
 export default function PropietariosPage() {
   const [propietarios, setPropietarios] = useState([]);
   const [editando, setEditando] = useState(null);
-  const [propietarioSeleccionado, setPropietarioSeleccionado] = useState(null);
+  const [agregarMascota, setAgregarMascota] = useState(null); 
+  // null = no agregando
+  // objeto propietario = agregando mascota a ese propietario
 
   useEffect(() => {
     cargar();
@@ -24,12 +26,10 @@ export default function PropietariosPage() {
     setPropietarios(data.data);
   }
 
-
   async function agregar(data) {
     const nuevo = await createPropietario(data);
     setPropietarios([...propietarios, nuevo]);
   }
-
 
   async function eliminar(id) {
     await deletePropietario(id);
@@ -38,38 +38,56 @@ export default function PropietariosPage() {
 
   async function actualizar(data) {
     const actualizado = await updatePropietario(data.id, data);
-
     setPropietarios(
-      propietarios.map((p) => (p.id === data.id ? actualizado : p))
+      propietarios.map(p => (p.id === data.id ? actualizado : p))
     );
-
     setEditando(null);
   }
 
-return (
-  <>
+  return (
+    <div>
+      {/* FORMULARIOS */}
+      {editando && (
+        <EditPropietario
+          propietario={editando}
+          onUpdate={actualizar}
+          onCancel={() => setEditando(null)}
+        />
+      )}
 
-      <div>
-        {editando ? (
-          <EditPropietario
-            propietario={editando}
-            onUpdate={actualizar}
-            onCancel={() => setEditando(null)}
+      {agregarMascota && (
+        <>
+          <h2 className="text-lg font-semibold mb-2">
+            Nueva mascota para {agregarMascota.nombre}
+          </h2>
+
+          <FormMascota
+            propietarioId={agregarMascota.id}
+            onSubmit={() => setAgregarMascota(null)}
           />
-        ) : (
-          <FormPropietario onSubmit={agregar} />
-        )}
 
-      
+          <button
+            onClick={() => setAgregarMascota(null)}
+            className="mt-2 text-sm text-blue-600 hover:underline"
+          >
+            ← Volver a propietarios
+          </button>
+        </>
+      )}
+
+      {!editando && !agregarMascota && (
+        <FormPropietario onSubmit={agregar} />
+      )}
+
+      {/* LISTA */}
+      {!agregarMascota && (
         <ListaPropietarios
           propietarios={propietarios}
           onDelete={eliminar}
           onEdit={(p) => setEditando(p)}
-          onVerDetalle={(id) => setPropietarioSeleccionado(id)}
+          onAgregarMascota={(p) => setAgregarMascota(p)}
         />
-      </div>
-        
-  </>
-);
-
+      )}
+    </div>
+  );
 }

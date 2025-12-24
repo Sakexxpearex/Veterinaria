@@ -1,21 +1,35 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getMascotasByPropietario } from "../../Api/mascotas";
+import { getMascotasByPropietario, createMascota } from "../../Api/mascotas";
+import FormMascota from "../Mascotas/FormMascota";
 
 export default function MascotasPorPropietario() {
-  const { id } = useParams();
+  const { id } = useParams(); // id del propietario
   const navigate = useNavigate();
+
   const [mascotas, setMascotas] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [mostrarForm, setMostrarForm] = useState(false);
 
   useEffect(() => {
     cargarMascotas();
   }, [id]);
 
   async function cargarMascotas() {
+    setLoading(true);
     const data = await getMascotasByPropietario(id);
     setMascotas(data);
     setLoading(false);
+  }
+
+  async function agregarMascota(data) {
+    await createMascota({
+      ...data,
+      propietario_id: id,
+    });
+
+    setMostrarForm(false);
+    cargarMascotas(); // refresca la lista
   }
 
   if (loading) {
@@ -24,6 +38,7 @@ export default function MascotasPorPropietario() {
 
   return (
     <div className="space-y-4">
+      {/* Header */}
       <div className="flex justify-between items-center">
         <h1 className="text-xl font-semibold">
           Mascotas del propietario
@@ -37,6 +52,20 @@ export default function MascotasPorPropietario() {
         </button>
       </div>
 
+      {/* Botón agregar */}
+      <button
+        onClick={() => setMostrarForm(!mostrarForm)}
+        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+      >
+        Agregar Mascota
+      </button>
+
+      {/* Formulario */}
+      {mostrarForm && (
+        <FormMascota onSubmit={agregarMascota} />
+      )}
+
+      {/* Tabla */}
       <div className="bg-white border border-gray-200 rounded-lg">
         <table className="min-w-full text-sm">
           <thead className="bg-gray-100">

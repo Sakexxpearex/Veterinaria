@@ -75,6 +75,7 @@ export default function ListaPropietarios({
                   >
                     Eliminar
                   </button>
+                  
                 </div>
               </td>
             </tr>
