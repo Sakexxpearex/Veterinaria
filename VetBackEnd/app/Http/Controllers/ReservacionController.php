@@ -73,11 +73,13 @@ public function store(Request $request)
 
     public function confirmar($id)
     {
-    $reservacion = Reservacion::findOrFail($id);
-    $reservacion->estado = 'confirmada';
-    $reservacion->save();
+        $reservacion = Reservacion::findOrFail($id);
+        $reservacion->estado = 'confirmada';
+        $reservacion->save();
 
-    return response()->json($reservacion);
+        return response()->json(
+            $reservacion->load(['mascota', 'propietario'])
+        );
     }
 
     public function cancelar($id)
@@ -86,6 +88,9 @@ public function store(Request $request)
         $reservacion->estado = 'cancelada';
         $reservacion->save();
 
-        return response()->json($reservacion);
+        return response()->json(
+            $reservacion->load(['mascota', 'propietario'])
+        );
     }
+
 }
