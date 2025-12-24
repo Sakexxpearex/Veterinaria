@@ -10,6 +10,7 @@ const [pendientes , setPendientes] = useState(0)
   useEffect(() => {
     const fetchCount = async () => {
       const count = await getMascotasCount();
+      console.log("reservaciones hoy:", count);
       setTotalMascotas(count);
     };
 
@@ -19,6 +20,7 @@ const [pendientes , setPendientes] = useState(0)
     useEffect(() => {
     const fetchCount = async () => {
       const count = await getReservacionesHoy();
+      console.log("reservaciones hoy:", count);
       setReservaciones(count);
     };
 
@@ -28,6 +30,7 @@ const [pendientes , setPendientes] = useState(0)
     useEffect(() => {
     const fetchCount = async () => {
     const count = await getReservacionesPendientes();
+    console.log("reservaciones hoy:", count);
     setPendientes(count);
     };
 

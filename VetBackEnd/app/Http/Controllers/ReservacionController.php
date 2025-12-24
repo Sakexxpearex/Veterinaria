@@ -63,4 +63,12 @@ class ReservacionController extends Controller
 
         return response()->json($total);
     }
+
+    public function todas()
+    {
+        return response()->json(
+        Reservacion::all()
+    );
+    
+    }
 }

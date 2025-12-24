@@ -1,12 +1,12 @@
+import ReservacionListado from "./reservacionListado"
 
-
-export default function reservacionesPage(){
+export default function ReservacionesPage(){
 
     return (
         <>
         
-            <h1>pagina de Reservaciones</h1>
-        
+            <ReservacionListado></ReservacionListado>
+            
         </>
     )
 }
