@@ -15,12 +15,12 @@ class Reservacion extends Model
         'motivo',
         'estado'
     ];
-    public function Mascota()
+    public function mascota()
     {
         return $this->belongsTo(Mascota::class);
     }
 
-    public function Propietario()
+    public function propietario()
     {
         return $this->belongsTo(Propietario::class);
     }

@@ -8,12 +8,12 @@ class Propietario extends Model
 {
     protected $fillable = ['nombre', 'email', 'telefono'];
 
-    public function mascotas()
+    public function mascota()
     {
         return $this->hasMany(Mascota::class);
     }
 
-    public function reservaciones()
+    public function reservacione()
     {
         return $this->hasMany(Reservacion::class);
     }

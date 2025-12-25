@@ -26,3 +26,4 @@ Route::get('/reservacionesTodas', [ReservacionController::class, 'todas']);
 Route::post('/reservaciones', [ReservacionController::class, 'store']);
 Route::patch('/reservaciones/{id}/confirmar', [ReservacionController::class, 'confirmar']);
 Route::patch('/reservaciones/{id}/cancelar', [ReservacionController::class, 'cancelar']);
+

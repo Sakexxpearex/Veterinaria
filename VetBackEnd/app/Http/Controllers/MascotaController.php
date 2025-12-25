@@ -31,7 +31,11 @@ class MascotaController extends Controller
 
     public function show($id)
     {
-        $mascota = Mascota::findOrFail($id);
+        $mascota = Mascota::with([
+            'propietario',
+            'reservaciones'
+        ])->findOrFail($id);
+
         return response()->json($mascota);
     }
 
@@ -55,4 +59,7 @@ class MascotaController extends Controller
         Mascota::count()
     );
     }
+
+
+
 }

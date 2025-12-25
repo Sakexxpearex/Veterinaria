@@ -38,3 +38,8 @@ export const getMascotasCount = async () => {
   const res = await axios.get("http://localhost:8000/api/mascotas-count");
   return res.data;
 };
+
+export const getMascotaById = async (id) => {
+  const res = await axios.get(`http://localhost:8000/api/mascotas/${id}`);
+  return res.data;
+};
