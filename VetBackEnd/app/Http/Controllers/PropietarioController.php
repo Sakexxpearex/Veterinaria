@@ -10,7 +10,7 @@ class PropietarioController extends Controller
     // Listar todos los propietarios
     public function index()
     {
-        return response()->json(Propietario::with('mascotas')->paginate(20));
+        return response()->json(Propietario::with('mascota')->paginate(20));
 
     }
 

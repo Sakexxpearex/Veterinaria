@@ -13,7 +13,7 @@ class Propietario extends Model
         return $this->hasMany(Mascota::class);
     }
 
-    public function reservacione()
+    public function reservacion()
     {
         return $this->hasMany(Reservacion::class);
     }
