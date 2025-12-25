@@ -6,6 +6,8 @@ use App\Models\Reservacion;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Mascota;
+use App\Mail\ReservacionEstadoMail;
+use Illuminate\Support\Facades\Mail;
 class ReservacionController extends Controller
 {
     public function index()
@@ -73,24 +75,31 @@ public function store(Request $request)
 
     public function confirmar($id)
     {
-        $reservacion = Reservacion::findOrFail($id);
+        $reservacion = Reservacion::with(['propietario', 'mascota'])
+            ->findOrFail($id);
+
         $reservacion->estado = 'confirmada';
         $reservacion->save();
 
-        return response()->json(
-            $reservacion->load(['mascota', 'propietario'])
-        );
+        Mail::to($reservacion->propietario->email)
+            ->send(new ReservacionEstadoMail($reservacion, 'confirmada'));
+
+        return response()->json($reservacion);
     }
 
     public function cancelar($id)
     {
-        $reservacion = Reservacion::findOrFail($id);
+        $reservacion = Reservacion::with(['propietario', 'mascota'])
+            ->findOrFail($id);
+
         $reservacion->estado = 'cancelada';
         $reservacion->save();
 
-        return response()->json(
-            $reservacion->load(['mascota', 'propietario'])
-        );
+        Mail::to($reservacion->propietario->email)
+            ->send(new ReservacionEstadoMail($reservacion, 'cancelada'));
+
+        return response()->json($reservacion);
     }
+
 
 }
