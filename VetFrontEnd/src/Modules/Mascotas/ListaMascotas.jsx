@@ -41,7 +41,8 @@ return (
                 {mascota.propietario?.nombre || "-"}
               </td>
               <td className="px-4 py-3">
-                <button className="text-blue-600 hover:underline">
+                <button onClick={() => navigate(`/mascotas/${mascota.id}/detalle`)}  
+                className="text-blue-600 hover:underline">
                   Ver
                 </button>
                 <button
