@@ -41,16 +41,23 @@ return (
                 {mascota.propietario?.nombre || "-"}
               </td>
               <td className="px-4 py-3">
-                <button onClick={() => navigate(`/mascotas/${mascota.id}/detalle`)}  
-                className="text-blue-600 hover:underline">
-                  Ver
-                </button>
-                <button
-                  onClick={() => navigate(`/mascotas/${mascota.id}/reservar`)}
-                  className="text-blue-600 hover:underline"
-                >
-                  Crear Reservación
-                </button>
+                <div className="flex items-center justify-end gap-4">
+                  <button
+                    onClick={() => navigate(`/mascotas/${mascota.id}/detalle`)}
+                    className="px-4 py-2 text-sm rounded-md border border-gray-300
+                              text-gray-700 hover:bg-gray-100 transition"
+                  >
+                    Ver
+                  </button>
+
+                  <button
+                    onClick={() => navigate(`/mascotas/${mascota.id}/reservar`)}
+                    className="px-4 py-2 text-sm rounded-md bg-blue-600
+                              text-white hover:bg-blue-700 transition"
+                  >
+                    Crear reservación
+                  </button>
+                </div>
               </td>
             </tr>
           ))}
